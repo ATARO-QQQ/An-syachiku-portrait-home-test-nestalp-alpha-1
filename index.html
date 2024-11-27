@@ -116,8 +116,13 @@
         .carousel-images img {
             width: 100%;
             height: auto;
-            aspect-ratio: 3/1; /* 横1:縦3の比率 */
-            object-fit: cover; /* 画像の比率を守りつつ、はみ出さないように */
+            object-fit: cover; /* 画像が間延びしないように調整 */
+        }
+
+        @media (max-width: 480px) {
+            .carousel-images img {
+                aspect-ratio: 1 / 1; /* スマホやフィーチャーフォンで正方形に近い形 */
+            }
         }
 
         .carousel button {
@@ -176,7 +181,7 @@
         /* スマートフォン調整 */
         @media (max-width: 480px) {
             .carousel-images img {
-                width: 100%;
+                aspect-ratio: 1 / 1; /* 正方形に近い形にする */
             }
 
             .main-content {
@@ -250,31 +255,32 @@
     <div class="main-content">
         <h1>ナマイキデザインへようこそ</h1>
         <p>ナマイキデザインは、動画や画像など、様々な撮影の手助けをする団体です。</p>
-        <p>私たちは、プロフェッショナルな機材と経験豊かなスタッフを揃え、撮影や編集のサポートを行っています。</p>
-        <p>どんな撮影もお手伝いしますので、お気軽にご相談ください。</p>
+        <p>私たちは、プロフェッショナルな機材と経験豊かなスタッフを揃え、撮影から編集までの全ての工程をサポートします。</p>
     </div>
 </main>
 
 <footer>
-    <p>©2024 An's-Syachiku D</p>
-    <p>ページ閲覧回数: <span id="page-views">0</span></p>
-    <p>現在時刻: <span id="current-time"></span></p>
+    <div>
+        <p>閲覧回数: <span id="page-views">0</span></p>
+        <p>現在時刻: <span id="current-time">--:--:--</span></p>
+    </div>
     <div class="footer-menu">
-        <a href="#">ホーム</a>
         <a href="#">サービス</a>
         <a href="#">ギャラリー</a>
         <a href="#">お問い合わせ</a>
     </div>
+    <p>&copy; 2024 An's-Syachiku D</p>
 </footer>
 
 <script>
+    // 閲覧回数のカウント
     let pageViewCount = localStorage.getItem('pageViewCount') || 0;
     pageViewCount++;
     localStorage.setItem('pageViewCount', pageViewCount);
-
     const pageViews = document.getElementById('page-views');
     pageViews.textContent = pageViewCount;
 
+    // 時間の更新
     const currentTimeElem = document.getElementById('current-time');
     setInterval(() => {
         const currentDate = new Date();
